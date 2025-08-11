@@ -1,0 +1,15 @@
+meta {
+  name: Actualizar comunidades por id
+  type: http
+  seq: 4
+}
+
+patch {
+  url: http://localhost:3010/comunidad/id
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

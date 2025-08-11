@@ -1,0 +1,15 @@
+meta {
+  name: Borrar comunidad por id
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3010/comunidad/2
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

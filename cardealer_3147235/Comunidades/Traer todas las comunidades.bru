@@ -1,0 +1,15 @@
+meta {
+  name: Traer todas las comunidades
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3010/comunidad
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

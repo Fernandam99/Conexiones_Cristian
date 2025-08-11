@@ -5,20 +5,25 @@ import { UpdateComunidadDto } from './dto/update-comunidad.dto';
 
 @Controller('comunidad')
 export class ComunidadController {
+
+  //inyeccion de deendencis:
+  //inyectar un componente para uso en otro sin tener que intanciarlo
+  constructor(private readonly comunidadService: ComunidadService){}
+
   @Post()
-  create() {
-    return "Aqui se creara una nueva comunidad";
+  create(@Body() body) {
+    return this.comunidadService.create(body)
   }
 
   @Get()
   findAll() {
-    return "Aqui se van a consultar todas las comunidades";
+    return this.comunidadService.findAll() ;
   }
 
   // Consultar una comunidad por ID
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `Aqui se va a consultar la comunidad con ID: ${id}`;
+    return this.comunidadService.findOne( +id);
   }
 
   @Patch(':id')
@@ -27,7 +32,12 @@ export class ComunidadController {
   }
 
   @Delete(':id')
+
+  //eliminara un atributo del arreglo
   remove(@Param('id') id: string) {
-    return `Aqui se va a eliminar la comunidad con ID: ${id}`;
+    return {
+      "Succes": true,
+      "mensaje": this.comunidadService.remove(+id)
+    }
   }
 }

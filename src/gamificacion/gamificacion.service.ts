@@ -41,7 +41,7 @@ export class GamificacionService {
   findOne(id: number) {
     return this.gamificaciones.find(g => g.id_gamificacion === id);
   }
-  create(body: Gamificacion): Gamificacion {
+  create(body): Gamificacion {
     this.gamificaciones.push(body);
     return body;
   }

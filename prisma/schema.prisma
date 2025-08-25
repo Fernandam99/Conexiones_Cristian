@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// modelos del proyecto
+
+model comunidad {
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(60)
+  cars car[]
+}
+
+model car{
+  id Int @id @default(autoincrement())
+  plate String @db.VarChar(6)
+  release_date DateTime @db.Date
+  is_available Boolean @default(true)
+  price Decimal @db.Decimal(10,2)
+  //campo de la clave foranea
+  comunidad_id Int
+  //relacion con la tabla comnidad
+  comunidad comunidad @relation(fields: [comunidad_id], references: [id])
+}
+
+model Notificaciones {
+  id Int @id @default(autoincrement())
+  id_usuario String @db.VarChar(10)
+  tipo String @db.VarChar(30)
+  mensaje String @db.VarChar(50)
+  fecha_envio DateTime @db.Date
+  categoria String @db.VarChar(15)
+}
+
+
+model Participacion {
+  id Int @id @default(autoincrement())
+  id_usuario String @db.VarChar(10)
+  id_comunidad String @db.VarChar(10)
+  rol String @db.VarChar(15)
+  fecha_ingreso DateTime @db.Date
+  activo Boolean @default(true)
+}
+
+
+model Progreso {
+  id Int @id @default(autoincrement())
+  id_usuario String @db.VarChar(10)
+  id_tipo_tecnica String @db.VarChar(10)
+  metrica String @db.VarChar(15)
+  valor_actual String @db.VarChar(5)
+  valor_anterior String @db.VarChar(5)
+  tendencia String @db.VarChar(50)
+  fecha DateTime @db.Date
+  periodo String @db.VarChar(10)
+  contexto String @db.VarChar(50)
+}
+
+model Recordatorio {
+  id Int @id @default(autoincrement())
+  id_usuario String @db.VarChar(10)
+  tipo String @db.VarChar(30)
+  mensaje String @db.VarChar(50)
+  fecha DateTime @db.Date
+  activo Boolean @default(true)
+}

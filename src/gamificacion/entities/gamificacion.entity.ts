@@ -1,4 +1,4 @@
-export class CreateGamificacionDto {
+export class Gamificacion {
     id_gamificacion: number;
     id_usuario: number;
     logro: string;

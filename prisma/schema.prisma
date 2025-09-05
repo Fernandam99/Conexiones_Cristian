@@ -6,8 +6,8 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
+
 
 datasource db {
   provider = "mysql"
@@ -16,22 +16,33 @@ datasource db {
 
 // modelos del proyecto
 
-model comunidad {
+model category {
   id Int @id @default(autoincrement())
   name String @db.VarChar(60)
-  cars car[]
+  carros car[]
+}
+
+model comunidad {
+  //decoradores: dan comportamientos y funcionalidades extras a los elemenmtos decorados
+  // @id : establece PK al campo
+  // @default : valor por defecto
+  id Int @id @default(autoincrement())
+  name String @db.VarChar(60)
+  carros car[]
 }
 
 model car{
   id Int @id @default(autoincrement())
-  plate String @db.VarChar(6)
-  release_date DateTime @db.Date
+  model String @db.VarChar(15)
+  release_date DateTime @db.DateTime
   is_available Boolean @default(true)
   price Decimal @db.Decimal(10,2)
   //campo de la clave foranea
   comunidad_id Int
   //relacion con la tabla comnidad
   comunidad comunidad @relation(fields: [comunidad_id], references: [id])
+  category_id Int
+  category category @relation(fields: [category_id], references: [id])
 }
 
 model Notificaciones {

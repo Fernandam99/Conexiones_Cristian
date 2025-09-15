@@ -3,18 +3,28 @@ import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaClient } from '@prisma/client';
 
+
 @Injectable()
 export class CategoriesService {
   private prisma = new PrismaClient();
 
-  async create(createCategoryDto: CreateCategoryDto) {
-    return this.prisma.category.create({
-      data: createCategoryDto,
-    });
+  // async create(createCategoryDto: CreateCategoryDto) {
+  //   return this.prisma.category.create({
+  //     data: createCategoryDto,
+  //   });
+  // }
+
+  async create(newCategory: CreateCategoryDto) {
+    return await this.prisma.category.create({
+      data: {
+        name : newCategory.name
+      }
+        });
+    return newCategory;
   }
 
   async findAll() {
-    return this.prisma.category.findMany();
+    return await this.prisma.category.findMany()
   }
 
   async findOne(id: number) {
@@ -31,12 +41,5 @@ export class CategoriesService {
   }
 
   async remove(id: number) {
-    await this.prisma.category.delete({
-      where: { id_category: id },
-    });
-    return {
-      status: 'success',
-      id_category: id,
-    };
   }
 }

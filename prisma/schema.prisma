@@ -10,15 +10,15 @@ generator client {
 
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
 }
 
 // modelos del proyecto
 
 model category {
   id Int @id @default(autoincrement())
-  name String @db.VarChar(60)
+  name String 
   carros car[]
 }
 
@@ -27,16 +27,16 @@ model comunidad {
   // @id : establece PK al campo
   // @default : valor por defecto
   id Int @id @default(autoincrement())
-  name String @db.VarChar(60)
+  name String 
   carros car[]
 }
 
 model car{
   id Int @id @default(autoincrement())
-  model String @db.VarChar(15)
-  release_date DateTime @db.DateTime
+  plate String 
+  release_date DateTime
   is_available Boolean @default(true)
-  price Decimal @db.Decimal(10,2)
+  price Decimal 
   //campo de la clave foranea
   comunidad_id Int
   //relacion con la tabla comnidad
@@ -47,42 +47,60 @@ model car{
 
 model Notificaciones {
   id Int @id @default(autoincrement())
-  id_usuario String @db.VarChar(10)
-  tipo String @db.VarChar(30)
-  mensaje String @db.VarChar(50)
-  fecha_envio DateTime @db.Date
-  categoria String @db.VarChar(15)
+  id_usuario String 
+  tipo String 
+  mensaje String 
+  fecha_envio DateTime 
+  categoria String 
 }
 
 
 model Participacion {
   id Int @id @default(autoincrement())
-  id_usuario String @db.VarChar(10)
-  id_comunidad String @db.VarChar(10)
-  rol String @db.VarChar(15)
-  fecha_ingreso DateTime @db.Date
+  id_usuario String 
+  id_comunidad String 
+  rol String 
+  fecha_ingreso DateTime 
   activo Boolean @default(true)
 }
 
 
 model Progreso {
   id Int @id @default(autoincrement())
-  id_usuario String @db.VarChar(10)
-  id_tipo_tecnica String @db.VarChar(10)
-  metrica String @db.VarChar(15)
-  valor_actual String @db.VarChar(5)
-  valor_anterior String @db.VarChar(5)
-  tendencia String @db.VarChar(50)
-  fecha DateTime @db.Date
-  periodo String @db.VarChar(10)
-  contexto String @db.VarChar(50)
+  id_usuario String 
+  id_tipo_tecnica String 
+  metrica String 
+  valor_actual String 
+  valor_anterior String 
+  tendencia String 
+  fecha DateTime 
+  periodo String 
+  contexto String 
 }
 
 model Recordatorio {
   id Int @id @default(autoincrement())
-  id_usuario String @db.VarChar(10)
-  tipo String @db.VarChar(30)
-  mensaje String @db.VarChar(50)
-  fecha DateTime @db.Date
+  id_usuario String 
+  tipo String 
+  mensaje String 
+  fecha DateTime 
   activo Boolean @default(true)
 }
+
+
+//AUTH shemas
+model estado {
+  id Int @id @default(autoincrement())
+  estado String
+  usuario usuario[]
+}
+
+model usuario{
+  id  Int @id @default(autoincrement())
+  username String  @unique
+  password String
+  estado_id Int @default(1)
+  estado estado @relation(fields: [estado_id], references: [id])
+}
+
+

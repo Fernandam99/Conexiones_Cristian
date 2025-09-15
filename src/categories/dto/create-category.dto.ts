@@ -10,5 +10,5 @@
 export class CreateCategoryDto {
 
     //CONTEXTO: SE EXPOERA QUE DESDE EL CLIENTE LLEGUE EL NNOMBRE DE LA CATEGORUIA UNICAMENTE
-    nombre: string;
+    name: string;
 }

@@ -8,6 +8,8 @@ import { GamificacionModule } from './gamificacion/gamificacion.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { CategoriesModule } from './categories/categories.module';
 
+
+
 @Module({
   imports: [CustomersModule, VendorsModule, ComunidadModule, GamificacionModule, PrismaModule, CategoriesModule],
   controllers: [AppController],

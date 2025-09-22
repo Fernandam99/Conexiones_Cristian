@@ -1,0 +1,15 @@
+meta {
+  name: Obtener todos los carros
+  type: http
+  seq: 5
+}
+
+get {
+  url: http://localhost:3011/cars
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

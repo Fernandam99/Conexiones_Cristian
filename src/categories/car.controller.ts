@@ -1,10 +1,15 @@
-import { Module } from '@nestjs/common';
-import { CarController } from '../brands/car.controller';
-import { CarService } from '../categories/car.service'; 
-import { PrismaService } from 'src/prisma/prisma.service';  
+import { Controller, Get, Post, Body } from '@nestjs/common';
+import { CarService } from './car.service';
+import { CreateCarDto } from './dto/create-car.dto';
 
-@Module({
-  controllers: [CarController],  
-  providers: [CarService, PrismaService],  
-})
-export class CarModule {}
+@Controller('cars')
+export class CarController {
+  constructor(private readonly carService: CarService) {}
+
+  @Post()
+  async create(@Body() newCar: CreateCarDto) {
+    return this.carService.create(newCar);
+  }
+
+  
+}
